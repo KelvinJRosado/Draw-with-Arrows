@@ -1,0 +1,79 @@
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
+import javafx.stage.Stage;
+
+public class DrawWithArrows extends Application{
+	double xLast;
+	double yLast;
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		Pane pane = new Pane();
+		Line l1 = new Line();
+		l1.setStartX(500);
+		l1.setStartY(300);
+		l1.setEndX(l1.getStartX());
+		l1.setEndY(l1.getStartY() - 10);
+		pane.getChildren().add(l1);
+		xLast = l1.getEndX();
+		yLast = l1.getEndY();
+		
+		pane.setOnKeyPressed(e -> {		
+			if(e.getCode() == KeyCode.RIGHT){
+				Line l2 = new Line();
+				l2.setStartX(xLast);
+				l2.setStartY(yLast);
+				l2.setEndY(l2.getStartY());
+				l2.setEndX(l2.getStartX() + 10);
+				xLast = l2.getEndX();
+				pane.getChildren().add(l2);
+			}
+			
+			else if(e.getCode() == KeyCode.LEFT){
+				Line l2 = new Line();
+				l2.setStartX(xLast);
+				l2.setStartY(yLast);
+				l2.setEndY(l2.getStartY());
+				l2.setEndX(l2.getStartX() - 10);
+				xLast = l2.getEndX();
+				pane.getChildren().add(l2);
+			}
+			
+			else if(e.getCode() == KeyCode.UP){
+				Line l2 = new Line();
+				l2.setStartX(xLast);
+				l2.setStartY(yLast);
+				l2.setEndY(l2.getStartY() - 10);
+				l2.setEndX(l2.getStartX());
+				yLast = l2.getEndY();
+				pane.getChildren().add(l2);
+			}
+			
+			else if(e.getCode() == KeyCode.DOWN){
+				Line l2 = new Line();
+				l2.setStartX(xLast);
+				l2.setStartY(yLast);
+				l2.setEndY(l2.getStartY() + 10);
+				l2.setEndX(l2.getStartX());
+				yLast = l2.getEndY();
+				pane.getChildren().add(l2);
+			}			
+		});
+		
+	    // Create a scene and place it in the stage
+	    Scene scene = new Scene(pane, 250, 250);
+	    primaryStage.setTitle("Draw with Arrows"); // Set the stage title
+	    primaryStage.setScene(scene); // Place the scene in the stage
+	    primaryStage.show(); // Display the stage
+	    primaryStage.setMaximized(true);
+	    pane.requestFocus();
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+
+}
